@@ -20,6 +20,10 @@ jobs:
     container: golang:1.26
     steps:
       - uses: actions/checkout@v4
+      # Каталог принадлежит другому uid, чем процесс в контейнере: git считает
+      # его чужим и молчит, а go build не может проставить VCS-штамп и падает.
+      - name: Trust the checkout
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - name: Vet
         working-directory: backend
         run: go vet ./internal/... ./cmd/...
