@@ -1,0 +1,6 @@
+#!/bin/sh
+# The root filesystem is read-only and /tmp is a fresh tmpfs on every start, so
+# the home directory has to be recreated before the shell looks for it. Its .ssh
+# comes along: without it the first ssh connection cannot store a host key.
+mkdir -p "$HOME/.ssh" 2>/dev/null || true
+exec "$@"

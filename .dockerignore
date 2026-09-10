@@ -1,0 +1,15 @@
+.env
+.git
+android
+backend
+docs
+screenshots
+node_modules
+frontend/node_modules
+test-results
+assets
+app
+dist
+*.md
+*.ps1
+*.cmd

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IDE Code</string>
+    <string name="author_name">Сергей Любивый</string>
+    <string name="author_handle">SergeyLubivui</string>
+    <string name="about_author">Разработчик: Сергей Любивый · SergeyLubivui</string>
+
+
+    <string name="engine_starting">Запускаем движок на устройстве…</string>
+    <string name="engine_failed">Движок не запустился. Проверьте свободное место и попробуйте снова.</string>
+    <string name="engine_retry">Повторить</string>
+
+    <string name="channel_session">Рабочая сессия</string>
+    <string name="channel_session_desc">Держит движок и терминал живыми, пока приложение свёрнуто.</string>
+    <string name="session_title">IDE Code работает</string>
+    <string name="session_text">Проекты и терминал работают на устройстве</string>
+    <string name="session_stop">Выгрузить</string>
+
+    <string name="folder_readme">Папка приложения IDE Code.\n\nСюда попадает всё, что вы скачиваете из интерфейса: экспорт проектов, файлы и журналы.\n\nРазработчик: Сергей Любивый (SergeyLubivui)</string>
+    <string name="saved_to">Сохранено в «Загрузки/%1$s»</string>
+    <string name="save_failed">Не удалось сохранить файл</string>
+</resources>

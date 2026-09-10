@@ -1,0 +1,27 @@
+# Секреты и настройки конкретной машины
+.env
+android/local.properties
+android/keystore.properties
+android/*.jks
+
+# Сборочные артефакты: всё это делают build.py и tools/.
+# Косая в начале обязательна: без неё «app/» подходит и к android/app.
+/dist/
+/app/
+android/build/
+android/app/build/
+android/.gradle/
+android/.kotlin/
+android/*.apk
+android/app/src/main/jniLibs/
+backend/internal/local/web/index.html
+backend/internal/local/web/vendor/
+backend/.cache/
+backend/*.exe
+test-results/
+backend/test-results/
+__pycache__/
+node_modules/
+
+# Внутренние проектные заметки: остаются на машине
+docs/

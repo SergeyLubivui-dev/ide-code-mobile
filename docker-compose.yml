@@ -1,0 +1,110 @@
+name: astracode
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: astracode
+      POSTGRES_USER: astracode
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-astra-local-development}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: [CMD-SHELL, "pg_isready -U astracode -d astracode"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+    networks: [control]
+  migrations:
+    build: ./backend/migrations
+    environment:
+      DATABASE_URL: postgresql://astracode:${POSTGRES_PASSWORD:-astra-local-development}@postgres:5432/astracode
+    depends_on:
+      postgres: {condition: service_healthy}
+    networks: [control]
+  sandbox-image:
+    build: ./backend/sandbox
+    image: astracode-powershell:local
+    entrypoint: ["/bin/true"]
+    restart: "no"
+    network_mode: none
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://astracode:${POSTGRES_PASSWORD:-astra-local-development}@postgres:5432/astracode
+      WORKSPACE_VOLUME: ${WORKSPACE_VOLUME:-astracode-workspaces}
+      ENGINE_INSTANCE: ${ENGINE_INSTANCE:-local}
+      SANDBOX_IMAGE: astracode-powershell:local
+      SANDBOX_NETWORK: ${SANDBOX_NETWORK:-astracode-sandbox}
+      SANDBOX_SUBNET: ${SANDBOX_SUBNET:-10.201.7.0/24}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      ALLOW_REGISTRATION: ${ALLOW_REGISTRATION:-true}
+    volumes:
+      - workspaces:/workspaces
+      - /var/run/docker.sock:/var/run/docker.sock
+    read_only: true
+    tmpfs: [/tmp:size=32m]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: [ALL]
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER]
+    mem_limit: 512m
+    cpus: 1
+    pids_limit: 128
+    depends_on:
+      migrations: {condition: service_completed_successfully}
+      sandbox-image: {condition: service_completed_successfully}
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, "http://127.0.0.1:8080/api/v1/health/ready"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [control]
+  ide-code:
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+    container_name: ide-code-mobile
+    restart: unless-stopped
+    ports:
+      - "${BIND_ADDRESS:-0.0.0.0}:${PORT:-5738}:80"
+    depends_on:
+      backend: {condition: service_healthy}
+    healthcheck:
+      test: [CMD, wget, -q, -O, /dev/null, "http://127.0.0.1/healthz"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    networks: [control]
+  backend-test:
+    profiles: [test]
+    build:
+      context: ./backend
+      target: test
+    environment:
+      TEST_BASE_URL: http://ide-code
+    volumes:
+      - ./backend:/src:ro
+    depends_on:
+      backend: {condition: service_healthy}
+      ide-code: {condition: service_started}
+    networks: [control]
+  frontend-test:
+    profiles: [test]
+    build:
+      context: .
+      dockerfile: frontend.Dockerfile
+      target: dom-test
+    environment:
+      TEST_BASE_URL: http://ide-code
+    volumes:
+      - ./frontend/tests:/vendor/tests:ro
+    depends_on:
+      ide-code: {condition: service_healthy}
+    networks: [control]
+networks:
+  control: {}
+volumes:
+  database:
+  workspaces:
+    name: ${WORKSPACE_VOLUME:-astracode-workspaces}

@@ -1,0 +1,13 @@
+{
+  "name": "astracode-browser-vendor",
+  "private": true,
+  "version": "1.0.0",
+  "devDependencies": { "jsdom": "26.1.0" },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@babel/standalone": "7.28.5",
+    "@xterm/xterm": "5.5.0",
+    "@xterm/addon-fit": "0.10.0"
+  }
+}

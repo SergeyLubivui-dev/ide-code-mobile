@@ -1,0 +1,11 @@
+# Оболочка и Go-код ломаются от CRLF: держим LF в репозитории независимо от того,
+# на чём правят файлы.
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.png binary
+*.jpg binary
+*.mp4 binary
+*.webm binary
+*.jks binary
+*.apk binary

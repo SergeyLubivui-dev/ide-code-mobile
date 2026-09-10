@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base">
+
+    <WebView
+        android:id="@+id/web"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="28dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@color/text"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/engine_starting"
+            android:textColor="@color/text_muted"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/retry"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="18dp"
+            android:paddingHorizontal="22dp"
+            android:background="@drawable/cta"
+            android:text="@string/engine_retry"
+            android:textAllCaps="false"
+            android:textColor="@color/base"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:gravity="center"
+            android:text="@string/about_author"
+            android:textColor="@color/text_faint"
+            android:textSize="12sp" />
+    </LinearLayout>
+</FrameLayout>
