@@ -5,6 +5,7 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/SergeyLubivui-dev/ide-code-mobile/actions/workflows/ci.yml"><img alt="Сборка" src="https://img.shields.io/github/actions/workflow/status/SergeyLubivui-dev/ide-code-mobile/ci.yml?branch=main&style=flat-square&label=%D1%81%D0%B1%D0%BE%D1%80%D0%BA%D0%B0"></a>
   <a href="https://github.com/SergeyLubivui-dev/ide-code-mobile/releases/latest"><img alt="Последний выпуск" src="https://img.shields.io/github/v/release/SergeyLubivui-dev/ide-code-mobile?style=flat-square&label=%D0%B2%D1%8B%D0%BF%D1%83%D1%81%D0%BA&color=7ee0c0"></a>
   <a href="https://github.com/SergeyLubivui-dev/ide-code-mobile/releases"><img alt="Загрузки" src="https://img.shields.io/github/downloads/SergeyLubivui-dev/ide-code-mobile/total?style=flat-square&label=%D0%B7%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BA%D0%B8&color=8fb0ff"></a>
   <a href="https://github.com/SergeyLubivui-dev/ide-code-mobile/stargazers"><img alt="Звёзды" src="https://img.shields.io/github/stars/SergeyLubivui-dev/ide-code-mobile?style=flat-square&color=e5c07b"></a>
