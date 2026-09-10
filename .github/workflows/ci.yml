@@ -14,12 +14,12 @@ jobs:
   engine:
     name: Engine (Go)
     runs-on: ubuntu-latest
+    # В контейнере, а не на голом раннере: тесты изоляции файловой системы
+    # передают файлы непривилегированному uid оболочки через chown, а это
+    # умеет только root. Локальный конвейер гоняет Go точно так же.
+    container: golang:1.26
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
-        with:
-          go-version-file: backend/go.mod
-          cache-dependency-path: backend/go.sum
       - name: Vet
         working-directory: backend
         run: go vet ./internal/... ./cmd/...
